@@ -289,7 +289,9 @@ float areaOfTriangle(float a, float b, float c) {
 */
 
 glm::vec2 pointOnCircle(const glm::vec2 &center, float R, float angleRads) {
-	return glm::vec2();
+	float x = center.x + R * std::cos(angleRads);
+	float y = center.y + R * std::sin(angleRads);;
+	return glm::vec2(x, y);
 }
 
 /**

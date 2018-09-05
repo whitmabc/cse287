@@ -9,17 +9,48 @@
 FrameBuffer frameBuffer(WINDOW_WIDTH, WINDOW_HEIGHT);
 
 void closed5x5Square(int x, int y, color C) {
-	drawLine(frameBuffer, x - 2, y, x + 2, y, C);
+	drawLine(frameBuffer, x - 2, y - 2, x + 2, y - 2, C);
+	drawLine(frameBuffer, x - 2, y - 1, x + 2, y - 1, C);
+	drawLine(frameBuffer, x - 2,     y, x + 2,     y, C);
+	drawLine(frameBuffer, x - 2, y + 1, x + 2, y + 1, C);
+	drawLine(frameBuffer, x - 2, y + 2, x + 2, y + 2, C);
 }
 
 void closed5x5Square(const glm::vec2 &centerPt, color C) {
+	closed5x5Square(centerPt.x, centerPt.y, C);
 }
 
 void open5x5Square(const glm::vec2 &centerPt, color C) {
+	// Top
+	drawLine(frameBuffer, centerPt.x - 2, centerPt.y + 2, centerPt.x + 2, centerPt.y + 2, C);
+
+	// Left
+	drawLine(frameBuffer, centerPt.x - 2, centerPt.y - 2, centerPt.x - 2, centerPt.y + 2, C);
+
+	// Right
+	drawLine(frameBuffer, centerPt.x + 2, centerPt.y - 2, centerPt.x + 2, centerPt.y + 2, C);
+
+	// Bottom
+	drawLine(frameBuffer, centerPt.x - 2, centerPt.y - 2, centerPt.x + 2, centerPt.y - 2, C);
 }
 
 void pieChart(const glm::vec2 &centerPt, float rad, float perc, const color &C1, const color &C2) {
-	drawArc(frameBuffer, centerPt, rad, M_PI_4, M_PI, C1);
+	// Large arc
+	drawArc(frameBuffer, centerPt, rad, M_PI * perc, M_2PI * (1 - perc), C1);
+	glm::vec2 topLine = pointOnCircle(centerPt, rad, M_PI * perc);
+	drawLine(frameBuffer, centerPt.x, centerPt.y, topLine.x, topLine.y, C1);
+	glm::vec2 bottomLine = pointOnCircle(centerPt, rad, -M_PI * perc);
+	drawLine(frameBuffer, centerPt.x, centerPt.y, bottomLine.x, bottomLine.y, C1);
+
+	glm::vec2 newCenter = centerPt;
+	newCenter.x += 10;
+
+	// Small arc
+	drawArc(frameBuffer, newCenter, rad, -M_PI * perc, M_2PI * (perc), C2);
+	glm::vec2 topLine2 = pointOnCircle(newCenter, rad, M_PI * perc);
+	drawLine(frameBuffer, newCenter.x, newCenter.y, topLine2.x, topLine2.y, C2);
+	glm::vec2 bottomLine2 = pointOnCircle(newCenter, rad, -M_PI * perc);
+	drawLine(frameBuffer, newCenter.x, newCenter.y, bottomLine2.x, bottomLine2.y, C2);
 }
 
 void render() {
@@ -39,11 +70,20 @@ void resize(int width, int height) {
 void keyboard(unsigned char key, int x, int y) {
 	switch (key) {
 	case ESCAPE:	glutLeaveMainLoop();
-					break;
+		break;
 	}
 }
 
 int main(int argc, char *argv[]) {
+	/*glm::vec2 v1(2, 3);
+	std::cout << v1.x << ' ' << v1.y << std::endl;
+	v1.x += 10;
+	std::cout << v1.x << ' ' << v1.y << std::endl;
+
+	glm::vec2 v2 = v1;
+	std::cout << v2.x << ' ' << v2.y << std::endl;
+	*/
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
 	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
