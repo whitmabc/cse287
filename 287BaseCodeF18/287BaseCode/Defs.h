@@ -26,11 +26,11 @@ const int SLICES = 8;				//!< default value used when slicing up a curved object
 
 const float M_PI = std::acos(-1.0f);	//!< pi
 const float M_2PI = 2 * M_PI;			//!< 2pi	(360 degrees)
-const float M_PI_2 = M_PI / 2.0f;		//!< pi/2	(180 degrees)
-const float M_PI_3 = M_PI / 3.0f;		//!< pi/3	(120 degrees)
-const float M_PI_4 = M_PI / 4.0f;		//!< pi/4	(90 degrees)
-const float M_PI_6 = M_PI / 6.0f;		//!< pi/6	(60 degrees)
-const float M_PI_12 = M_PI / 12.0f;		//!< pi/12	(30 degrees)
+const float M_PI_2 = M_PI / 2.0f;		//!< pi/2	(90 degrees)
+const float M_PI_3 = M_PI / 3.0f;		//!< pi/3	(60 degrees)
+const float M_PI_4 = M_PI / 4.0f;		//!< pi/4	(45 degrees)
+const float M_PI_6 = M_PI / 6.0f;		//!< pi/6	(30 degrees)
+const float M_PI_12 = M_PI / 12.0f;		//!< pi/12	(15 degrees)
 
 const glm::vec3 ORIGIN3D = glm::vec3(0.0f, 0.0f, 0.0f);				//!< (0, 0, 0)
 const glm::vec4 ORIGIN3DHOMO = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);	//!< (0, 0, 0)
