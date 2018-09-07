@@ -378,7 +378,7 @@ bool isOrthogonal(const glm::vec3 &a, const glm::vec3 &b) {
 
 /**
  * @fn	float cosBetween(const glm::vec2 &v1, const glm::vec2 &v2)
- * @brief	Cosine between v1 and v2. 
+ * @brief	Cosine between v1 and v2.
  * @param	v1	The first vector.
  * @param	v2	The second vector.
  * @return	The cosine between v1 and v2.
@@ -461,7 +461,7 @@ glm::vec2 rotate90CCW(const glm::vec2 &pt) {
  */
 
 float map(float x, float xLow, float xHigh, float yLow, float yHigh) {
-	return 0.0f;
+	return ((x - xLow) * ((yHigh - yLow) / (xHigh - xLow)) + yLow);
 }
 
 /**
@@ -477,7 +477,7 @@ float map(float x, float xLow, float xHigh, float yLow, float yHigh) {
  */
 
 void map(float x, float xLow, float xHigh, float yLow, float yHigh, float &y) {
-	y = 0.0f;
+	y = map(x, xLow, xHigh, yLow, yHigh);
 }
 
 /**
@@ -494,8 +494,18 @@ void map(float x, float xLow, float xHigh, float yLow, float yHigh, float &y) {
 
 std::vector<float> quadratic(float A, float B, float C) {
 	std::vector<float> result;
-	result.push_back(-1);
-	result.push_back(0);
+	float discriminant = B * B - 4 * A * C;
+
+	if (discriminant > 0) {
+		result.push_back((-B + sqrt(discriminant)) / (2 * A));
+		result.push_back((-B - sqrt(discriminant)) / (2 * A));
+		std::sort(result.begin(), result.begin() + 1);
+	}
+
+	else if (discriminant < 0) {
+		result.push_back(-B / (2 * A));
+	}
+
 	return result;
 }
 
@@ -512,9 +522,12 @@ std::vector<float> quadratic(float A, float B, float C) {
 */
 
 int quadratic(float A, float B, float C, float roots[2]) {
-	roots[0] = 0.0f;
-	roots[1] = 1.0f;
-	return 2;
+	std::vector<float> calculatedRoots = quadratic(A, B, C);
+	for (int i = 0; i < calculatedRoots.size; i++) {
+		roots[i] = calculatedRoots.pop_back;
+	}
+	
+	return sizeof(roots);
 }
 
 /**
@@ -891,9 +904,9 @@ glm::mat4 Rz(float rads) {
 void computeXYZFromAzimuthAndElevation(float R,
 	float az, float el,
 	float &x, float &y, float &z) {
-	z = R*std::cos(el)*std::cos(az);
-	x = R*std::cos(el)*std::sin(az);
-	y = R*std::sin(el);
+	z = R * std::cos(el)*std::cos(az);
+	x = R * std::cos(el)*std::sin(az);
+	y = R * std::sin(el);
 }
 
 /**
