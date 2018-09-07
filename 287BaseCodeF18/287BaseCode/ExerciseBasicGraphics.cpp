@@ -75,14 +75,30 @@ void keyboard(unsigned char key, int x, int y) {
 }
 
 int main(int argc, char *argv[]) {
-	/*glm::vec2 v1(2, 3);
-	std::cout << v1.x << ' ' << v1.y << std::endl;
-	v1.x += 10;
-	std::cout << v1.x << ' ' << v1.y << std::endl;
 
-	glm::vec2 v2 = v1;
-	std::cout << v2.x << ' ' << v2.y << std::endl;
-	*/
+	std::cout << "Expected results: 45, 225, 45, 270, 45, 0, 45\n" << std::endl;
+
+	/*@test	directionInDegrees(2, 10, 3, 11)-- > 45
+		@test	directionInDegrees(3, 11, 2, 10)-- > 225
+		@test	directionInDegrees(0, 0, 10, 10)-- > 45
+		@test	directionInDegrees(2, 2, 2, 0)-- > 270*/
+	
+	std::cout << directionInDegrees(2, 10, 3, 11) << " ";
+	std::cout << directionInDegrees(3, 11, 2, 10) << " ";
+	std::cout << directionInDegrees(0, 0, 10, 10) << " ";
+	std::cout << directionInDegrees(2, 2, 2, 0) << " ";
+
+	// @test	directionInDegrees((2,10), (3,11)) --> 45
+
+	std::cout << directionInDegrees(glm::vec2(2, 10), glm::vec2(3, 11)) << " ";
+
+	/*@test	directionInDegrees((1, 0))-- > 0
+	  @test	directionInDegrees((1, 1))-- > 45*/
+
+	std::cout << directionInDegrees(glm::vec2(1, 0)) << " ";
+	std::cout << directionInDegrees(glm::vec2(1, 1)) << std::endl;
+
+
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);

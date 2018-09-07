@@ -310,7 +310,7 @@ glm::vec2 pointOnCircle(const glm::vec2 &center, float R, float angleRads) {
 */
 
 float directionInDegrees(float x1, float y1, float x2, float y2) {
-	return 0.0f;
+	return rad2deg(normalizeRadians(std::atan2(y2 - y1, x2 - x1)));
 }
 
 /**
@@ -324,7 +324,7 @@ float directionInDegrees(float x1, float y1, float x2, float y2) {
 */
 
 float directionInDegrees(const glm::vec2 &pt1, const glm::vec2 &pt2) {
-	return 0.0f;
+	return directionInDegrees(pt1.x, pt1.y, pt2.x, pt2.y);
 }
 
 /**
@@ -338,7 +338,7 @@ float directionInDegrees(const glm::vec2 &pt1, const glm::vec2 &pt2) {
 */
 
 float directionInDegrees(const glm::vec2 &targetPt) {
-	return 0.0f;
+	return directionInDegrees(glm::vec2(0, 0), targetPt);
 }
 
 
