@@ -76,31 +76,15 @@ void keyboard(unsigned char key, int x, int y) {
 
 int main(int argc, char *argv[]) {
 
-	std::cout << "Expected results: 45, 225, 45, 270, 45, 0, 45\n" << std::endl;
+	glm::vec2 v(2, -9);
+	glm::vec3 v2(2, -9, -9);
 
-	/*@test	directionInDegrees(2, 10, 3, 11)-- > 45
-		@test	directionInDegrees(3, 11, 2, 10)-- > 225
-		@test	directionInDegrees(0, 0, 10, 10)-- > 45
-		@test	directionInDegrees(2, 2, 2, 0)-- > 270*/
-	
-	std::cout << directionInDegrees(2, 10, 3, 11) << " ";
-	std::cout << directionInDegrees(3, 11, 2, 10) << " ";
-	std::cout << directionInDegrees(0, 0, 10, 10) << " ";
-	std::cout << directionInDegrees(2, 2, 2, 0) << " ";
-
-	// @test	directionInDegrees((2,10), (3,11)) --> 45
-
-	std::cout << directionInDegrees(glm::vec2(2, 10), glm::vec2(3, 11)) << " ";
-
-	/*@test	directionInDegrees((1, 0))-- > 0
-	  @test	directionInDegrees((1, 1))-- > 45*/
-
-	std::cout << directionInDegrees(glm::vec2(1, 0)) << " ";
-	std::cout << directionInDegrees(glm::vec2(1, 1)) << std::endl;
+	std::cout << v << std::endl;
+	std::cout << doubleIt(v) << std::endl;
+	std::cout << myNormalize(v2) << std::endl;
 
 
-
-	glutInit(&argc, argv);
+	/*glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
 	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	GLuint world_Window = glutCreateWindow(__FILE__);
@@ -113,7 +97,7 @@ int main(int argc, char *argv[]) {
 
 	frameBuffer.setClearColor(black);
 
-	glutMainLoop();
+	glutMainLoop();*/
 
 	return 0;
 }

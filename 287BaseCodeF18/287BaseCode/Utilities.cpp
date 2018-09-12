@@ -350,7 +350,7 @@ float directionInDegrees(const glm::vec2 &targetPt) {
 */
 
 glm::vec2 doubleIt(const glm::vec2 &V) {
-	return V;
+	return 2.0f * V;
 }
 
 /**
@@ -361,7 +361,7 @@ glm::vec2 doubleIt(const glm::vec2 &V) {
 */
 
 glm::vec3 myNormalize(const glm::vec3 &V) {
-	return V;
+	return V / glm::length(V);
 }
 
 /**
@@ -373,7 +373,7 @@ glm::vec3 myNormalize(const glm::vec3 &V) {
 */
 
 bool isOrthogonal(const glm::vec3 &a, const glm::vec3 &b) {
-	return false;
+	return approximatelyZero(cosBetween(a, b));
 }
 
 /**
@@ -385,7 +385,7 @@ bool isOrthogonal(const glm::vec3 &a, const glm::vec3 &b) {
  */
 
 float cosBetween(const glm::vec2 &v1, const glm::vec2 &v2) {
-	return 0.0f;
+	return glm::dot(glm::normalize(v1), glm::normalize(v2));
 }
 
 /**
@@ -397,7 +397,7 @@ float cosBetween(const glm::vec2 &v1, const glm::vec2 &v2) {
  */
 
 float cosBetween(const glm::vec3 &v1, const glm::vec3 &v2) {
-	return 0.0f;
+	return glm::dot(glm::normalize(v1), glm::normalize(v2));
 }
 
 /**
@@ -433,7 +433,7 @@ float radsBetween(const glm::vec3 &v1, const glm::vec3 &v2) {
 */
 
 glm::vec3 project(const glm::vec3 &from, const glm::vec3 &onto) {
-	return glm::vec3();
+	return (glm::dot(from, onto) / (glm::length(onto) * glm::length(onto))) * onto;
 }
 
 /**
@@ -540,7 +540,7 @@ int quadratic(float A, float B, float C, float roots[2]) {
  */
 
 float areaOfParallelogram(const glm::vec3 &v1, const glm::vec3 &v2) {
-	return 0.0f;
+	return glm::length(glm::cross(v1, v2));
 }
 
 /**
@@ -553,7 +553,7 @@ float areaOfParallelogram(const glm::vec3 &v1, const glm::vec3 &v2) {
  */
 
 float areaOfTriangle(const glm::vec3 &pt1, const glm::vec3 &pt2, const glm::vec3 &pt3) {
-	return 0.0f;
+	return 0.5f * glm::length(glm::cross((pt3 - pt1), (pt2 - pt1)));
 }
 
 /**
@@ -591,7 +591,7 @@ bool isRightHandedOrthoNormalBasis(const glm::vec3 &u, const glm::vec3 &v, const
 */
 
 glm::vec3 pointingVector(const glm::vec3 &pt1, const glm::vec3 &pt2) {
-	return glm::vec3();
+	return glm::normalize(pt2 - pt1);
 }
 
 /**
