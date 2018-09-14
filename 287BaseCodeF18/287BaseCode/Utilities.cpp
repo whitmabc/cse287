@@ -526,8 +526,9 @@ std::vector<float> quadratic(float A, float B, float C) {
 
 int quadratic(float A, float B, float C, float roots[2]) {
 	std::vector<float> calculatedRoots = quadratic(A, B, C);
-	for (int i = 0; i < calculatedRoots.size; i++) {
-		roots[i] = calculatedRoots.pop_back;
+	for (int i = 0; i < calculatedRoots.size(); i++) {
+		roots[i] = calculatedRoots.back();
+		calculatedRoots.pop_back();
 	}
 	
 	return sizeof(roots);
@@ -618,7 +619,7 @@ glm::vec3 normalFrom3Points(const glm::vec3 &pt0, const glm::vec3 &pt1, const gl
 */
 
 glm::vec3 normalFrom3Points(const std::vector<glm::vec3> pts) {
-	return normalFrom3Points(pts.pop_back, pts.pop_back, pts.pop_back);
+	return normalFrom3Points(pts[0], pts[1], pts[2]);
 }
 
 /**
