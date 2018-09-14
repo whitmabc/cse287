@@ -604,7 +604,7 @@ glm::vec3 pointingVector(const glm::vec3 &pt1, const glm::vec3 &pt2) {
 */
 
 glm::vec3 normalFrom3Points(const glm::vec3 &pt0, const glm::vec3 &pt1, const glm::vec3 &pt2) {
-	return glm::vec3();
+	return glm::normalize(glm::cross((pt1 - pt0), (pt2 - pt0)));
 }
 
 /**
@@ -615,7 +615,7 @@ glm::vec3 normalFrom3Points(const glm::vec3 &pt0, const glm::vec3 &pt1, const gl
 */
 
 glm::vec3 normalFrom3Points(const std::vector<glm::vec3> pts) {
-	return glm::vec3();
+	return normalFrom3Points(pts.pop_back, pts.pop_back, pts.pop_back);
 }
 
 /**

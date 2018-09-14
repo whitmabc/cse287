@@ -76,13 +76,6 @@ void keyboard(unsigned char key, int x, int y) {
 
 int main(int argc, char *argv[]) {
 
-	glm::vec2 v(2, -9);
-	glm::vec3 v2(2, -9, -9);
-
-	std::cout << v << std::endl;
-	std::cout << doubleIt(v) << std::endl;
-	std::cout << myNormalize(v2) << std::endl;
-
 
 	/*glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
