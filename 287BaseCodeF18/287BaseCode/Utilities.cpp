@@ -274,6 +274,9 @@ void pointOnUnitCircle(float angleRads, float &x, float &y) {
 */
 
 float areaOfTriangle(float a, float b, float c) {
+	if (min(a, b, c) <= 0) {
+		return -1;
+	}
 	float S = (a + b + c) / 2;
 	return std::sqrt(S * (S - a) * (S - b) * (S - c));
 }
