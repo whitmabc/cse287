@@ -1,4 +1,5 @@
 #include "Light.h"
+#include <math.h>
 
 /**
  * @fn	color ambientColor(const color &mat, const color &light)
@@ -9,7 +10,7 @@
   */
 
 color ambientColor(const color &mat, const color &light) {
-	return mat;
+	return glm::clamp(mat*light, 0.0f, 1.0f);
 }
 
 /**
@@ -24,7 +25,7 @@ color ambientColor(const color &mat, const color &light) {
 
 color diffuseColor(const color &mat, const color &light,
 					const glm::vec3 &l, const glm::vec3 &n) {
-	return mat;
+	return glm::clamp(mat*light * (glm::dot(l, n)), 0.0f, 1.0f);
 }
 
 /**
@@ -41,7 +42,7 @@ color diffuseColor(const color &mat, const color &light,
 color specularColor(const color &mat, const color &light,
 					float shininess,
 					const glm::vec3 &r, const glm::vec3 &v) {
-	return mat;
+	return glm::clamp(mat*light * (pow(glm::dot(r, v), shininess)), 0.0f, 1.0f);
 }
 
 /**
@@ -59,14 +60,29 @@ color specularColor(const color &mat, const color &light,
  */
  
 color totalColor(const Material &mat, const LightColor &lightColor,
-				const glm::vec3 &v, const glm::vec3 &n,
-				const glm::vec3 &lightPos, const glm::vec3 &intersectionPt,
-				bool attenuationOn, 
-				const LightAttenuationParameters &ATparams) {
+	const glm::vec3 &v, const glm::vec3 &n,
+	const glm::vec3 &lightPos, const glm::vec3 &intersectionPt,
+	bool attenuationOn,
+	const LightAttenuationParameters &ATparams) {
 	if (DEBUG_PIXEL) {
 		std::cout << std::endl;
 	}
-	return mat.ambient + mat.diffuse;
+	const color l = glm::normalize(lightPos - intersectionPt);
+	const color r = 2.0f * glm::dot(l, n) * n - l;
+
+	float d = glm::length(intersectionPt - lightPos);
+	float af = 1 / (ATparams.constant + ATparams.linear * d + ATparams.quadratic * (d * d));
+
+	color ambient = ambientColor(mat.ambient, lightColor.ambient);
+	color specular = specularColor(mat.specular, lightColor.specular, mat.shininess, r, v);
+	color diffuse = diffuseColor(mat.diffuse, lightColor.diffuse, l, n);
+
+	if (attenuationOn) {
+		specular = af * specular;
+		diffuse = af * diffuse;
+	}
+
+	return ambient + specular + diffuse;
 }
 
 /**
