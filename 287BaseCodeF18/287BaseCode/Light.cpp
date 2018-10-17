@@ -64,6 +64,7 @@ color totalColor(const Material &mat, const LightColor &lightColor,
 	const glm::vec3 &lightPos, const glm::vec3 &intersectionPt,
 	bool attenuationOn,
 	const LightAttenuationParameters &ATparams) {
+
 	if (DEBUG_PIXEL) {
 		std::cout << std::endl;
 	}
@@ -100,6 +101,8 @@ color PositionalLight::illuminate(const glm::vec3 &interceptWorldCoords,
 									const Material &material,
 									const Frame &eyeFrame, bool inShadow) const {
 	if (!isOn) return black;
+	
+	color matColor = material.ambient + material.diffuse + material.specular;
 	return material.ambient;
 }
 

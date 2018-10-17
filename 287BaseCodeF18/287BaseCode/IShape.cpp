@@ -134,8 +134,12 @@ IDisk::IDisk(const glm::vec3 &pos, const glm::vec3 &normal, float rad)
  */
 
 void IDisk::findClosestIntersection(const Ray &ray, HitRecord &hit) const {
-	hit.t = 1.0f;
-	hit.surfaceNormal = glm::vec3();
+	IPlane p(center, n);
+	p.findClosestIntersection(ray, hit);
+	if (hit.t != FLT_MAX &&
+		glm::distance(center, hit.interceptPoint) > radius) {
+		hit.t = FLT_MAX;
+	}
 }
 
 /**

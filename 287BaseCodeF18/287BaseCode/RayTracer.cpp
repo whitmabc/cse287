@@ -51,6 +51,7 @@ color RayTracer::traceIndividualRay(const Ray &ray, const IScene &theScene, int 
 	color result = defaultColor;
 
 	if (theHit.t < FLT_MAX) {
+		// call illuminate
 		result = theHit.material.diffuse;
 	}
 	return result;

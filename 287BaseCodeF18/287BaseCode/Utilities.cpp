@@ -497,15 +497,15 @@ void map(float x, float xLow, float xHigh, float yLow, float yHigh, float &y) {
 
 std::vector<float> quadratic(float A, float B, float C) {
 	std::vector<float> result;
-	float discriminant = B * B - 4 * A * C;
+	float discriminant = (B * B) - (4 * A * C);
 
 	if (discriminant > 0) {
 		result.push_back((-B + sqrt(discriminant)) / (2 * A));
 		result.push_back((-B - sqrt(discriminant)) / (2 * A));
-		std::sort(result.begin(), result.begin() + 1);
+		std::sort(result.begin(), result.end());
 	}
 
-	else if (discriminant < 0) {
+	else if (discriminant == 0) {
 		result.push_back(-B / (2 * A));
 	}
 
@@ -526,12 +526,15 @@ std::vector<float> quadratic(float A, float B, float C) {
 
 int quadratic(float A, float B, float C, float roots[2]) {
 	std::vector<float> calculatedRoots = quadratic(A, B, C);
-	for (int i = 0; i < calculatedRoots.size(); i++) {
+	int count = 0;
+	int n = calculatedRoots.size();
+	for (int i = 0; i < n; i++) {
 		roots[i] = calculatedRoots.back();
 		calculatedRoots.pop_back();
+		count++;
 	}
 	
-	return sizeof(roots);
+	return count;
 }
 
 /**

@@ -52,7 +52,7 @@ void buildScene() {
 	IShape *bronzeDisk = new IDisk(glm::vec3(-6, 0, -5), glm::vec3(0,0,1), 3);
 	IShape *tinDisk = new IDisk(glm::vec3(-8, 0, -4), glm::vec3(0, 0, 1), 3);
 	ICylinderY *cylinder = new ICylinderY(glm::vec3(4.0f, 0.0f, -1.0f), 5.0f, 3.0f);
-
+	// IClosedCylinderY *cc
 	scene.addObject(new VisibleIShape(bronzeDisk, bronze));
 	scene.addObject(new VisibleIShape(tinDisk, tin));
 	scene.addObject(new VisibleIShape(cylinder, gold));

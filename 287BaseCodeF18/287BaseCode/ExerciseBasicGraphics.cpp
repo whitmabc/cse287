@@ -77,7 +77,7 @@ void keyboard(unsigned char key, int x, int y) {
 int main(int argc, char *argv[]) {
 
 
-	/*glutInit(&argc, argv);
+	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
 	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	GLuint world_Window = glutCreateWindow(__FILE__);
@@ -90,7 +90,7 @@ int main(int argc, char *argv[]) {
 
 	frameBuffer.setClearColor(black);
 
-	glutMainLoop();*/
+	glutMainLoop();
 
 	return 0;
 }
