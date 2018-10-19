@@ -108,6 +108,10 @@ HitRecord VisibleIShape::findIntersection(const Ray &ray, const std::vector<Visi
 		if (thisHit.t < theHit.t && thisHit.t > 0) {
 			theHit = thisHit;
 			theHit.material = surfaces[i]->material;
+			theHit.texture = surfaces[i]->texture;
+			if (theHit.texture != nullptr) {
+				surfaces[i]->shape->getTexCoords(theHit.interceptPoint, theHit.u, theHit.v);
+			}
 		}
 	}
 	return theHit;
@@ -823,7 +827,10 @@ void ICylinderY::findClosestIntersection(const Ray &ray, HitRecord &hit) const {
 */
 
 void ICylinderY::getTexCoords(const glm::vec3 &pt, float &u, float &v) const {
-	u = v = 0.0f;
+	float angle = normalizeRadians(std::atan2(pt.z, pt.x));
+	float bottom = center.y - length / 2.0f;
+	u = angle / M_2PI;
+	v = (pt.y - bottom) / length;
 }
 
 /**

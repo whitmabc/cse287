@@ -51,8 +51,15 @@ color RayTracer::traceIndividualRay(const Ray &ray, const IScene &theScene, int 
 	color result = defaultColor;
 
 	if (theHit.t < FLT_MAX) {
-		// call illuminate
-		result = theHit.material.diffuse;
+		if (theHit.texture != nullptr) {
+			float u = glm::clamp(theHit.u, 0.0f, 1.0f);
+			float v = glm::clamp(theHit.v, 0.0f, 1.0f);
+			result = theHit.texture->getPixel(u, v);
+		}
+		else {
+			// compute color normally
+			result = theHit.material.diffuse;
+		}
 	}
 	return result;
 
