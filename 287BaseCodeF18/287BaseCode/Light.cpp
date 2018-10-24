@@ -101,7 +101,12 @@ color PositionalLight::illuminate(const glm::vec3 &interceptWorldCoords,
 									const Material &material,
 									const Frame &eyeFrame, bool inShadow) const {
 	if (!isOn) return black;
-	return material.ambient;
+	if (inShadow) return material.ambient;
+	
+	color Light = this->lightColorComponents.ambient + this->lightColorComponents.specular + this->lightColorComponents.diffuse;
+	glm::vec3 v = glm::normalize(this->lightPosition - interceptWorldCoords);
+
+	return totalColor(material, Light, v, normal, this->lightPosition, interceptWorldCoords);
 }
 
 /**

@@ -58,7 +58,7 @@ color RayTracer::traceIndividualRay(const Ray &ray, const IScene &theScene, int 
 		}
 		else {
 			// compute color normally
-			result = theHit.material.diffuse;
+			result = PositionalLight::illuminate(theHit.interceptPoint, theHit.surfaceNormal, theHit.material, theScene.camera->cameraFrame, false);
 		}
 	}
 	return result;
