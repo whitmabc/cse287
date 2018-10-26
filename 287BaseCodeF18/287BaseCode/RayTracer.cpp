@@ -57,8 +57,8 @@ color RayTracer::traceIndividualRay(const Ray &ray, const IScene &theScene, int 
 			result = theHit.texture->getPixel(u, v);
 		}
 		else {
-			// compute color normally
-			result = PositionalLight::illuminate(theHit.interceptPoint, theHit.surfaceNormal, theHit.material, theScene.camera->cameraFrame, false);
+			// Compute color normally
+			result = theScene.lights[0]->illuminate(theHit.interceptPoint, theHit.surfaceNormal, theHit.material, theScene.camera->cameraFrame, false);
 		}
 	}
 	return result;
