@@ -42,7 +42,7 @@ color diffuseColor(const color &mat, const color &light,
 color specularColor(const color &mat, const color &light,
 					float shininess,
 					const glm::vec3 &r, const glm::vec3 &v) {
-	return glm::clamp(mat*light * (pow(glm::dot(r, v), shininess)), 0.0f, 1.0f);
+	return glm::clamp(mat*light * (glm::pow(glm::max(0.0f, glm::dot(r, v)), shininess)), 0.0f, 1.0f);
 }
 
 /**
@@ -101,12 +101,13 @@ color PositionalLight::illuminate(const glm::vec3 &interceptWorldCoords,
 									const Material &material,
 									const Frame &eyeFrame, bool inShadow) const {
 	if (!isOn) return black;
-	if (inShadow) return material.ambient;
+	if (inShadow) return ambientColor(material.ambient, this->lightColorComponents.ambient);
 	
-	color Light = this->lightColorComponents.ambient + this->lightColorComponents.specular + this->lightColorComponents.diffuse;
-	glm::vec3 v = glm::normalize(this->lightPosition - interceptWorldCoords);
+	glm::vec3 v = glm::normalize(eyeFrame.origin - interceptWorldCoords);
 
-	return totalColor(material, Light, v, normal, this->lightPosition, interceptWorldCoords);
+	return totalColor(material, this->lightColorComponents, v, normal, this->lightPosition, interceptWorldCoords, this->attenuationIsTurnedOn, this->attenuationParams);
+
+	
 }
 
 /**
@@ -124,7 +125,16 @@ color SpotLight::illuminate(const glm::vec3 &interceptWorldCoords,
 							const Material &material,
 							const Frame &eyeFrame, bool inShadow) const {
 	if (!isOn) return black;
-	return material.ambient;
+
+	glm::vec3 v = glm::normalize(eyeFrame.origin - interceptWorldCoords);
+	glm::vec3 objToLight = glm::normalize(interceptWorldCoords - this->lightPosition);
+	
+	if (glm::acos(glm::dot(objToLight, spotDirection)) <= fov / 2.0f) {
+		if (inShadow) return ambientColor(material.ambient, lightColorComponents.ambient);
+		return totalColor(material, this->lightColorComponents, v, normal, this->lightPosition, interceptWorldCoords, this->attenuationIsTurnedOn, this->attenuationParams);
+	}
+
+	return ambientColor(material.ambient, this->lightColorComponents.ambient);
 }
 
 /**

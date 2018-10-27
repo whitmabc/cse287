@@ -13,6 +13,7 @@
 struct RayTracer {
 	color defaultColor;
 	RayTracer(const color &defaultColor);
+	void raytraceScene(FrameBuffer & frameBuffer, int depth, const IScene & theScene, const int aa) const;
 	void raytraceScene(FrameBuffer &frameBuffer, int depth,
 						const IScene &theScene) const;
 protected:

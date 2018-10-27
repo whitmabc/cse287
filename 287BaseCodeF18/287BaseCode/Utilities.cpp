@@ -529,12 +529,10 @@ int quadratic(float A, float B, float C, float roots[2]) {
 	int count = 0;
 	int n = calculatedRoots.size();
 	for (int i = 0; i < n; i++) {
-		roots[i] = calculatedRoots.back();
-		calculatedRoots.pop_back();
-		count++;
+		roots[i] = calculatedRoots.at(i);
 	}
 	
-	return count;
+	return n;
 }
 
 /**

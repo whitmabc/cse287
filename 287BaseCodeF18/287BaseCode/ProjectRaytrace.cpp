@@ -38,7 +38,7 @@ void render() {
 	int frameStartTime = glutGet(GLUT_ELAPSED_TIME);
 	cameras[currCamera]->calculateViewingParameters(frameBuffer.getWindowWidth()/2, frameBuffer.getWindowHeight());
 	cameras[currCamera]->changeConfiguration(glm::vec3(0, 15, 15), ORIGIN3D, Y_AXIS);
-	rayTrace.raytraceScene(frameBuffer, numReflections, scene);
+	rayTrace.raytraceScene(frameBuffer, numReflections, scene, antiAliasing);
 
 	int frameEndTime = glutGet(GLUT_ELAPSED_TIME); // Get end time
 	float totalTimeSec = (frameEndTime - frameStartTime) / 1000.0f;

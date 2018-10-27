@@ -842,6 +842,8 @@ void ICylinderY::getTexCoords(const glm::vec3 &pt, float &u, float &v) const {
  * @param	C	Third vertex.
  */
 
+
+
 ITriangle::ITriangle(const glm::vec3 &A, const glm::vec3 &B, const glm::vec3 &C)
 	: IShape(), a(A), b(B), c(C), plane(IPlane(A, B, C)) {
 }
