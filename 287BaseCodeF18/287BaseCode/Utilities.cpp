@@ -777,7 +777,7 @@ glm::mat2 myinverse(const glm::mat2 &M) {
 */
 
 glm::mat3 T(float dx, float dy) {
-	return glm::mat3();
+	return glm::mat3(1, 0, 0, 0, 1, 0, dx, dy, 1);
 }
 
 /**
@@ -789,7 +789,7 @@ glm::mat3 T(float dx, float dy) {
  */
 
 glm::mat3 S(float sx, float sy) {
-	return glm::mat3();
+	return glm::mat3(sx, 0, 0, 0, sy, 0, 0, 0, 1);
 }
 
 /**
@@ -800,7 +800,8 @@ glm::mat3 S(float sx, float sy) {
  */
 
 glm::mat3 R(float deg) {
-	return glm::mat3();
+	float rad = deg2rad(deg);
+	return glm::mat3(cos(rad), sin(rad), 0, -sin(rad), cos(rad), 0, 0, 0, 1);
 }
 
 /**
@@ -811,7 +812,7 @@ glm::mat3 R(float deg) {
  */
 
 glm::mat3 horzShear(float a) {
-	return glm::mat3();
+	return glm::mat3(1, 0, 0, a, 1, 0, 0, 0, 1);
 }
 
 /**
@@ -821,8 +822,24 @@ glm::mat3 horzShear(float a) {
  * @return	The 3x3 shearing matrix.
  */
 
+glm::mat3 reflectAcrossOrigin() {
+	return S(-1, -1);
+}
+
+glm::mat3 reflectAcrossYaxis() {
+	return S(-1, 1);
+}
+
 glm::mat3 vertShear(float a) {
-	return glm::mat3();
+	return glm::mat3(1, a, 0, 0, 1, 0, 0, 0, 1);
+}
+
+glm::mat3 scale2XAboutPoint(float x, float y) {
+	return T(x, y) *  S(2, 2) * T(-x , -y);
+}
+
+glm::mat3 reflectAcrossLineYeqXplus50() {
+	
 }
 
 /**

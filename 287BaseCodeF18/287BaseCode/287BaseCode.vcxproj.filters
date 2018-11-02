@@ -110,7 +110,7 @@
     <ClCompile Include="Light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ProjectRaytrace.cpp">
+    <ClCompile Include="Exercise2DTransformations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
