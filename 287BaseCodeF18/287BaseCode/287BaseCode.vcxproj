@@ -165,7 +165,7 @@
     <ClCompile Include="ColorAndMaterials.cpp" />
     <ClCompile Include="Defs.cpp" />
     <ClCompile Include="EShape.cpp" />
-    <ClCompile Include="ExerciseMatrixOperationsGLM.cpp" />
+    <ClCompile Include="Exercise3DTransformations.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Image.cpp" />
