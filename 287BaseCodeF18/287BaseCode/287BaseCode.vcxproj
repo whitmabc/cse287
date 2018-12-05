@@ -165,11 +165,11 @@
     <ClCompile Include="ColorAndMaterials.cpp" />
     <ClCompile Include="Defs.cpp" />
     <ClCompile Include="EShape.cpp" />
-    <ClCompile Include="ExercisePipelineShadingHiddenSurfaces.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="FragmentOps.cpp" />
+    <ClCompile Include="ProjectPipeline.cpp" />
     <ClCompile Include="VertexOps.cpp" />
     <ClCompile Include="Rasterization.cpp" />
     <ClCompile Include="RayTracer.cpp" />
