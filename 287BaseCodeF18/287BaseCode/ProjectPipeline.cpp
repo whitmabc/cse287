@@ -29,10 +29,12 @@ EShapeData plane = EShape::createECheckerBoard(copper, tin, 10, 10, 10);
 //EShapeData plane = EShape::createECheckerBoard(silver, blackPlastic, 10, 10, 10);
 
 EShapeData cone = EShape::createECone(silver);
+EShapeData cylinder = EShape::createECylinder(gold);
 
 void renderObjects() {
-	VertexOps::render(frameBuffer, plane, lights, R(M_PI));
-	
+	// VertexOps::render(frameBuffer, plane, lights, glm::mat3(1,0,0,0,1,0,0,0,1));
+	// VertexOps::render(frameBuffer, cone, lights, S(3.0f));
+	VertexOps::render(frameBuffer, cylinder, lights, S(3.0f));
 }
 
 static void render() {
@@ -41,7 +43,7 @@ static void render() {
 	int height = frameBuffer.getWindowHeight();
 	float x, y, z;
 	computeXYZFromAzimuthAndElevation(angle, az, el, x, y, z);
-	glm::vec3 focusPoint = position + glm::vec3(x, y, z); // based on az, el, position, and angle
+	glm::vec3 focusPoint = position + glm::vec3(x, y, -z); // based on az, el, position, and angle
 	VertexOps::viewingTransformation = glm::lookAt(position, focusPoint, Y_AXIS);
 	float AR = (float)width / height;
 	VertexOps::projectionTransformation = glm::perspective(glm::radians(125.0), 2.0, 0.1, 5.0);
@@ -55,7 +57,9 @@ void resize(int width, int height) {
 	float AR = (float)width / height;
 
 	VertexOps::setViewport(0, width - 1, 0, height - 1);
-	VertexOps::projectionTransformation = glm::perspective(M_PI_3, AR, 0.5f, 80.0f);
+	VertexOps::projectionTransformation = glm::perspective(glm::radians(90.0), 2.0, 0.5, 50.0);
+
+	// VertexOps::projectionTransformation = glm::perspective(M_PI_3, AR, 0.5f, 80.0f);
 
 	glutPostRedisplay();
 }

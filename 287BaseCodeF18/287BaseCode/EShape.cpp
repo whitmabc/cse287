@@ -41,6 +41,41 @@ EShapeData EShape::createEPyramid(const Material &mat, float width, float height
 
 EShapeData EShape::createECylinder(const Material &mat, float R, float height, int slices, int stacks) {
 	EShapeData result;
+	float angle = M_2PI / slices;
+
+	for (int i = 0; i < slices; i++) {
+		glm::vec2 p1 = pointOnCircle(glm::vec2(0,0), R, i * angle);
+		glm::vec2 p2 = pointOnCircle(glm::vec2(0, 0), R,(i + 1) * angle);
+
+		float x1 = p1[0];
+		float z1 = p1[1];
+		float x2 = p2[0];
+		float z2 = p2[2];
+
+		glm::vec4 V1(x1, 0, z1, 1);
+		glm::vec4 V2(x1, height, z1, 1);
+		glm::vec4 V3(x2, 0, z2, 1);
+		glm::vec4 V4(x2, height, z2, 1);
+
+		glm::vec3 N = normalFrom3Points(V1.xyz, V2.xyz, V3.xyz);
+
+		VertexData vert1(V1, N, mat);
+		VertexData vert2(V2, N, mat);
+		VertexData vert3(V3, N, mat);
+		VertexData vert4(V2, N, mat);
+		VertexData vert5(V3, N, mat);
+		VertexData vert6(V4, N, mat);
+
+		result.push_back(vert1);
+		result.push_back(vert2);
+		result.push_back(vert3);
+		result.push_back(vert4);
+		result.push_back(vert5);
+		result.push_back(vert6);
+
+
+
+	}
 	return result;
 }
 
@@ -60,21 +95,30 @@ EShapeData EShape::createECone(const Material &mat, float R, float height, int s
 	float angle = M_2PI / slices;
 	glm::vec4 top(0, height, 0, 1);
 
-	/**for (int i = 0; i < slices; i++) {
-		float x1 = ;
-		float z1 = ;
-		float x2 = ;
-		float z2 = ;
+	for (int i = 0; i < slices; i++) {
+
+		glm::vec2 p1 = pointOnCircle(glm::vec2(0,0), R, i * angle);
+		glm::vec2 p2 = pointOnCircle(glm::vec2(0,0), R, (i+1) * angle);
+
+		float x1 = p1[0];
+		float z1 = p1[1];
+		float x2 = p2[0];
+		float z2 = p2[1];
+
 		glm::vec4 V1(x1, 0, z1, 1);
 		glm::vec4 V2(x2, 0, z2, 1);
 
 		glm::vec3 N = normalFrom3Points(V1.xyz, V2.xyz, top.xyz);
+
 		VertexData vert1(V1, N, mat);
 		VertexData vert2(V2, N, mat);
-		VertexData vert1(V1, N, mat); 
+		VertexData vert3(top, N, mat); 
 
+		result.push_back(vert1);
+		result.push_back(vert2);
+		result.push_back(vert3);
 
-	} **/
+	}
 
 	return result;
 }
