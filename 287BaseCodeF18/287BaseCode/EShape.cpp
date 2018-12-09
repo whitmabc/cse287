@@ -50,7 +50,7 @@ EShapeData EShape::createECylinder(const Material &mat, float R, float height, i
 		float x1 = p1[0];
 		float z1 = p1[1];
 		float x2 = p2[0];
-		float z2 = p2[2];
+		float z2 = p2[1];
 
 		glm::vec4 V1(x1, 0, z1, 1);
 		glm::vec4 V2(x1, height, z1, 1);
@@ -72,9 +72,6 @@ EShapeData EShape::createECylinder(const Material &mat, float R, float height, i
 		result.push_back(vert4);
 		result.push_back(vert5);
 		result.push_back(vert6);
-
-
-
 	}
 	return result;
 }
@@ -108,7 +105,7 @@ EShapeData EShape::createECone(const Material &mat, float R, float height, int s
 		glm::vec4 V1(x1, 0, z1, 1);
 		glm::vec4 V2(x2, 0, z2, 1);
 
-		glm::vec3 N = normalFrom3Points(V1.xyz, V2.xyz, top.xyz);
+		glm::vec3 N = normalFrom3Points(top.xyz, V2.xyz, V1.xyz);
 
 		VertexData vert1(V1, N, mat);
 		VertexData vert2(V2, N, mat);
